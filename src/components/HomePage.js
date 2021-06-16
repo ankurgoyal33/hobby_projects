@@ -28,39 +28,36 @@ export default class HomePage extends React.Component {
     } 
 
     handleShowOption(){
-        alert("inside show option");
         this.setState(() => ({showProjectCreationFormModal: true}));
     }
     
     handleCloseOption(){
-        alert("inside close option");
         this.setState(() => ({showProjectCreationFormModal: false}));
     }
 
     handleAddOption(listOfProject){
-        alert('inside add option');
-        // this.setState((prevState)=>({
-        //     listOfProjects: prevState.listOfProjects.concat([listOfProject])
-        // }));
+        this.setState((prevState)=>({
+            listOfProjects: prevState.listOfProjects.concat([listOfProject])
+        }));
 
         // this.state.listOfProjects = {...this.state.listOfProjects, ...listOfProject}
 
-        const lOP = Object.assign(this.state.listOfProjects, listOfProject);
-        this.setState(()=>({listOfProjects:lOP}));
+        // const lOP = Object.assign(this.state.listOfProjects, listOfProject);
+        // this.setState(()=>({listOfProjects:lOP}));
     }
 
     render(){
         return (
             <div>
                 <Header />
+
                 <p>Add New Project: </p>
+
                 <ActionButton 
                     text={"Add"}
                     handleShowOption={this.handleShowOption}
-                    // handleShowOption={() => {
-                    //     this.setState({showProjectCreationFormModal: true});
-                    // }}
                 />
+
                 <ProjectsViewer listOfProjects={this.state.listOfProjects}/>
                 
                 <ProjectCreationFormModal 
@@ -68,7 +65,6 @@ export default class HomePage extends React.Component {
                     handleCloseOption = {this.handleCloseOption}
                     handleAddOption = {this.handleAddOption}
                 />
-
             </div>
         );
     }
