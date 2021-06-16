@@ -1,0 +1,25 @@
+import React from 'react';
+import Modal from 'react-modal';
+
+export default class ProjectViewerModal extends React.Component {
+    constructor(props){
+        super(props);
+        
+    }
+
+    render(){
+        return (
+            <Modal
+                isOpen ={this.props.showProjectViewerModal}
+                onRequestClose={this.props.handleCloseProjectViewerModal}
+                contentLabel="Project Viewer"
+            >
+                <h2>Detail of Selected Project</h2>
+                
+               
+
+            </Modal>
+        );
+    }
+}
+
