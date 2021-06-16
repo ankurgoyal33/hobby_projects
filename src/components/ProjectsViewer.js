@@ -1,12 +1,18 @@
 import React from 'react';
+import ProjectCard from './ProjectCard';
 
 const ProjectsViewer = (props) => (
-    
     <div>
         <h1>List of projects:</h1>
-        <ProjectCard />
-        <button> Edit Project </button>
-        <button> Delete Project </button>
+
+        {
+            props.listOfProjects.map((project)=>(
+                <ProjectCard
+                    key={project.title}
+                    detail={project}
+                />
+            ))
+        }
     </div>
 );
 
