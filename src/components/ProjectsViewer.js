@@ -3,18 +3,22 @@ import ProjectCard from './ProjectCard';
 
 const ProjectsViewer = (props) => (
     <div>
-        <h1>List of projects:</h1>
+        <h2>List of projects:</h2>
+        
         {props.listOfProjects.length ===0 && <p>No Projects added</p>}
+        <ol>
         {
-            
             props.listOfProjects.map((project)=>(
-                <ProjectCard
-                    key={project.title}
-                    detail={project}
-                    handleDeleteOption = {props.handleDeleteOption}
-                />
+                <li>
+                    <ProjectCard
+                        key={project.title}
+                        detail={project}
+                        handleDeleteOption = {props.handleDeleteOption}
+                    />
+                </li>
             ))
         }
+        </ol>
     </div>
 );
 

@@ -78,11 +78,15 @@ export default class HomePage extends React.Component {
             <div>
                 <Header />
 
-                <p>Add New Project: </p>
-
                 <ActionButton 
-                    text={"Add"}
+                    text={"Add New Project"}
                     handleShowOption={this.handleShowOption}
+                />
+
+                <ProjectCreationFormModal 
+                    showProjectCreationFormModal = {this.state.showProjectCreationFormModal}
+                    handleCloseOption = {this.handleCloseOption}
+                    handleAddOption = {this.handleAddOption}
                 />
 
                 <ProjectsViewer 
@@ -90,11 +94,6 @@ export default class HomePage extends React.Component {
                     handleDeleteOption={this.handleDeleteOption}
                 />
                 
-                <ProjectCreationFormModal 
-                    showProjectCreationFormModal = {this.state.showProjectCreationFormModal}
-                    handleCloseOption = {this.handleCloseOption}
-                    handleAddOption = {this.handleAddOption}
-                />
             </div>
         );
     }
