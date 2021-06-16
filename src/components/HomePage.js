@@ -11,19 +11,11 @@ export default class HomePage extends React.Component {
         this.handleShowOption = this.handleShowOption.bind(this);
         this.handleCloseOption = this.handleCloseOption.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
 
         this.state = {
             showProjectCreationFormModal: false,
-            listOfProjects: [
-                {
-                    title:"p1",
-                    desc: "This is project 1."
-                },
-                {
-                    title:"p2",
-                    desc: "This is project 2."
-                }
-            ]
+            listOfProjects: []
         };
     } 
 
@@ -35,15 +27,50 @@ export default class HomePage extends React.Component {
         this.setState(() => ({showProjectCreationFormModal: false}));
     }
 
-    handleAddOption(listOfProject){
+    handleAddOption(titleText, descriptionText){
+        if(!titleText){
+            return 'Title is mandatory';
+        } 
+        
+        if(!descriptionText){
+            return 'Description is mandatory (min 150 char)';
+        }
+
+        const listOfProject = {
+            title: titleText,
+            desc: descriptionText
+        };
+
         this.setState((prevState)=>({
             listOfProjects: prevState.listOfProjects.concat([listOfProject])
         }));
+    }
 
-        // this.state.listOfProjects = {...this.state.listOfProjects, ...listOfProject}
+    handleDeleteOption(titleToRemove){
+        console.log('hdo', titleToRemove);
+        this.setState((prevState) => ({
+            listOfProjects: prevState.listOfProjects.filter((project)=> titleToRemove !== project.title)
+        }));
+    }
 
-        // const lOP = Object.assign(this.state.listOfProjects, listOfProject);
-        // this.setState(()=>({listOfProjects:lOP}));
+    componentDidMount(){
+        try {
+            const json = localStorage.getItem('listOfProjects');
+            const listOfProjects = JSON.parse(json);
+    
+            if(listOfProjects){
+                this.setState(() => ({ listOfProjects}));
+            }
+        } catch(e){
+
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.listOfProjects.length !== this.state.listOfProjects.length){
+            const json = JSON.stringify(this.state.listOfProjects);
+            localStorage.setItem('listOfProjects', json);
+        }
     }
 
     render(){
@@ -58,7 +85,10 @@ export default class HomePage extends React.Component {
                     handleShowOption={this.handleShowOption}
                 />
 
-                <ProjectsViewer listOfProjects={this.state.listOfProjects}/>
+                <ProjectsViewer 
+                    listOfProjects={this.state.listOfProjects}
+                    handleDeleteOption={this.handleDeleteOption}
+                />
                 
                 <ProjectCreationFormModal 
                     showProjectCreationFormModal = {this.state.showProjectCreationFormModal}

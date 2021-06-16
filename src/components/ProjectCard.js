@@ -60,6 +60,11 @@ export default class ProjectCard extends React.Component {
                 />
                 <ActionButton 
                     text={"Delete"}
+                    // handleShowOption={this.props.handleDeleteOption(this.props.detail.title)} 
+
+                    handleShowOption = {() => {
+                        this.props.handleDeleteOption(this.props.detail.title);
+                    }}
                 />
                 
             </div>
