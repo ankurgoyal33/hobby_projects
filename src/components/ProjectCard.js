@@ -38,7 +38,6 @@ export default class ProjectCard extends React.Component {
         return(
             <div>
                 <p>Project is titled :<strong>{this.props.detail.title}</strong></p>
-                <p>Project contains following details: {this.props.detail.desc}</p>
                 <ActionButton 
                     text={"More Details"}
                     handleShowOption = {this.handleShowProjectViewerModal}

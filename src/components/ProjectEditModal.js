@@ -15,6 +15,7 @@ export default class ProjectEditModal extends React.Component {
                 contentLabel="Project Edit"
             >
                 <h2>Edit page</h2>
+
             </Modal>
         );
     }
