@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ActionButton = (props) => (
-    <button onClick={props.handleShowOption}> {props.text} </button> 
+    <button onClick={props.onClick}> {props.text} </button> 
 );
 
 export default ActionButton;
