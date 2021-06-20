@@ -3,98 +3,83 @@ import Header from './Header';
 import ActionButton from './ActionButton';
 import ProjectsViewer from './ProjectsViewer';
 import ProjectCreationFormModal from './ProjectCreationFormModal';
+import {ProjectDetailsStore} from '../store/ProjectDetails';
+import { connect } from 'react-redux';
 
-export default class HomePage extends React.Component {
+const HomePage = (props) => {
 
-    constructor(props){
-        super(props);
-        this.handleShowOption = this.handleShowOption.bind(this);
-        this.handleCloseOption = this.handleCloseOption.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-
-        this.state = {
-            showProjectCreationFormModal: false,
-            listOfProjects: []
-        };
-    } 
-
-    handleShowOption(){
-        this.setState(() => ({showProjectCreationFormModal: true}));
+    const handleShowOption = () => {
+        //this.setState(() => ({showProjectCreationFormModal: true}));
     }
     
-    handleCloseOption(){
-        this.setState(() => ({showProjectCreationFormModal: false}));
+    const handleCloseOption = () => {
+        //this.setState(() => ({showProjectCreationFormModal: false}));
     }
 
-    handleAddOption(titleText, descriptionText){
-        if(!titleText){
-            return 'Title is mandatory';
-        } 
-        
-        if(!descriptionText){
-            return 'Description is mandatory (min 150 char)';
-        }
+    const handleAddOption = (titleText, descriptionText) => {
+        // if(!titleText){
+        //     return 'Title is mandatory';
+        // } 
 
-        const listOfProject = {
-            title: titleText,
-            desc: descriptionText
-        };
+        // if(!descriptionText){
+        //     return 'Description is mandatory (min 150 char)';
+        // }
 
-        this.setState((prevState)=>({
-            listOfProjects: prevState.listOfProjects.concat([listOfProject])
-        }));
+        // const listOfProject = {
+        //     title: titleText,
+        //     desc: descriptionText
+        // };
+
+        // this.setState((prevState)=>({
+        //     listOfProjects: prevState.listOfProjects.concat([listOfProject])
+        // }));
     }
 
-    handleDeleteOption(titleToRemove){
-        console.log('hdo', titleToRemove);
-        this.setState((prevState) => ({
-            listOfProjects: prevState.listOfProjects.filter((project)=> titleToRemove !== project.title)
-        }));
-    }
+    return (
+        <div>
+            <Header />
 
-    componentDidMount(){
-        try {
-            const json = localStorage.getItem('listOfProjects');
-            const listOfProjects = JSON.parse(json);
-    
-            if(listOfProjects){
-                this.setState(() => ({ listOfProjects}));
-            }
-        } catch(e){
+            <ActionButton
+                text={"Add New Project"}
+                onClick={() => {
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'Open_Modal'
+                        })
+                }}
+            />
 
-        }
-    }
+            <ProjectCreationFormModal
+                showProjectCreationFormModal={props.showProjectCreationFormModal}
+                handleCloseOption={handleCloseOption}
+                handleAddOption={handleAddOption}
+            />
 
-    componentDidUpdate(prevProps, prevState){
-        if(prevState.listOfProjects.length !== this.state.listOfProjects.length){
-            const json = JSON.stringify(this.state.listOfProjects);
-            localStorage.setItem('listOfProjects', json);
-        }
-    }
+            {/* <ProjectsViewer 
+            listOfProjects={this.state.listOfProjects}
+            handleDeleteOption={this.handleDeleteOption}
+        /> */}
 
-    render(){
-        return (
-            <div>
-                <Header />
-
-                <ActionButton 
-                    text={"Add New Project"}
-                    handleShowOption={this.handleShowOption}
-                />
-
-                <ProjectCreationFormModal 
-                    showProjectCreationFormModal = {this.state.showProjectCreationFormModal}
-                    handleCloseOption = {this.handleCloseOption}
-                    handleAddOption = {this.handleAddOption}
-                />
-
-                <ProjectsViewer 
-                    listOfProjects={this.state.listOfProjects}
-                    handleDeleteOption={this.handleDeleteOption}
-                />
-                
-            </div>
-        );
-    }
+        </div>
+    );
 }
+
+const mapStateToProps = function (state) {
+    return {
+        showProjectCreationFormModal: state.showProjectCreationFormModal
+    };
+}
+
+export default connect(mapStateToProps)(HomePage);
+
+
+// function connect( arg1 ) {
+
+//     return function(arg2) {
+
+//         props = arg1(store.getState()) ; 
+//         return function( props ) {
+//             return <arg2 ></arg2>
+//         }
+//     }
+// }
