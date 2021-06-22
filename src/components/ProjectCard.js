@@ -2,71 +2,70 @@ import React from 'react';
 import ActionButton from './ActionButton';
 import ProjectViewerModal from './ProjectViewerModal';
 import ProjectEditModal from './ProjectEditModal';
+import {ProjectDetailsStore} from '../store/ProjectDetails';
+import { connect } from 'react-redux';
 
-export default class ProjectCard extends React.Component {
+const ProjectCard = (props) => {
    
-    constructor(props){
-        super(props);
-        this.handleShowProjectViewerModal = this.handleShowProjectViewerModal.bind(this);
-        this.handleCloseProjectViewerModal = this.handleCloseProjectViewerModal.bind(this);
-        this.handleShowProjectEditModal = this.handleShowProjectEditModal.bind(this);
-        this.handleCloseProjectEditModal = this.handleCloseProjectEditModal.bind(this);
+    return(
+        <div>
+            <p>Project is titled :<strong>{props.detail.title}</strong></p>
+            <ActionButton 
+                text={"More Details"}
+                onClick={() => {
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'OPEN_MORE_DETAILS_MODAL',
+                            // value: props.index
+                            value: props.detail
+                        })
+                }}
+            />
+            <ProjectViewerModal 
+                handleCloseProjectViewerModal = {() => {
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'CLOSE_MORE_DETAILS_MODAL'
+                        })
+                }}
+            />
 
-        this.state = {
-            showProjectViewerModal: false,
-            showProjectEditModal: false,
-        };
-    } 
-
-    handleShowProjectViewerModal(){
-        this.setState(() => ({showProjectViewerModal: true}));
-    }
-    
-    handleCloseProjectViewerModal(){
-        this.setState(() => ({showProjectViewerModal: false}));
-    }
-
-    handleShowProjectEditModal(){
-        this.setState(() => ({showProjectEditModal: true}));
-    }
-    
-    handleCloseProjectEditModal(){
-        this.setState(() => ({showProjectEditModal: false}));
-    }
-
-    render(){
-        return(
-            <div>
-                <p>Project is titled :<strong>{this.props.detail.title}</strong></p>
-                <ActionButton 
-                    text={"More Details"}
-                    handleShowOption = {this.handleShowProjectViewerModal}
-                />
-                <ProjectViewerModal 
-                    showProjectViewerModal = {this.state.showProjectViewerModal}
-                    handleCloseProjectViewerModal = {this.handleCloseProjectViewerModal}
-                    detail = {this.props.detail}
-                />
-
-                <ActionButton 
-                    text={"Edit"}
-                    handleShowOption = {this.handleShowProjectEditModal}
-                />
-                <ProjectEditModal 
-                    showProjectViewerModal = {this.state.showProjectEditModal}
-                    handleCloseProjectViewerModal = {this.handleCloseProjectEditModal}
-                    detail = {this.props.detail}
-                />
-                <ActionButton 
-                    text={"Delete"}
-                    // handleShowOption={this.props.handleDeleteOption(this.props.detail.title)} 
-
-                    handleShowOption = {() => {
-                        this.props.handleDeleteOption(this.props.detail.title);
-                    }}
-                />
-                
-            </div>
-        );
-    }
+            <ActionButton 
+                text={"Edit"}
+                onClick={() => {
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'OPEN_EDIT_MODAL'
+                        })
+                }}
+            />
+            <ProjectEditModal 
+                showProjectViewerModal = {props.showProjectEditModal}
+                handleCloseProjectViewerModal = {() => {
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'CLOSE_EDIT_MODAL'
+                        })
+                }}
+            />
+            <ActionButton 
+                text={"Delete"}
+                onClick={() => {
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'DELETE_PROJECT_DETAIL',
+                            titleToRemove: props.detail.title
+                        })
+                }}
+            />
+        </div>
+    );
 }
+
+const mapStateToProps = function (state) {
+    return {
+        showProjectEditModal: state.showProjectEditModal
+    };
+}
+
+export default connect(mapStateToProps)(ProjectCard);

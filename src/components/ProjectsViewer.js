@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
+import { connect } from 'react-redux';
 
 const ProjectsViewer = (props) => (
     <div>
@@ -8,12 +9,12 @@ const ProjectsViewer = (props) => (
         {props.listOfProjects.length ===0 && <p>No Projects added</p>}
         <ol>
         {
-            props.listOfProjects.map((project)=>(
+            props.listOfProjects.map((project, index )=>(
                 <li>
                     <ProjectCard
                         key={project.title}
-                        detail={project}
-                        handleDeleteOption = {props.handleDeleteOption}
+                        detail={{...project}}
+                        // index={index}
                     />
                 </li>
             ))
@@ -22,4 +23,10 @@ const ProjectsViewer = (props) => (
     </div>
 );
 
-export default ProjectsViewer;
+const mapStateToProps = function (state) {
+    return {
+        listOfProjects: state.listOfProjects
+    };
+}
+
+export default connect(mapStateToProps)(ProjectsViewer);

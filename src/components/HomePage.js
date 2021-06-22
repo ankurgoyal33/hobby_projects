@@ -7,36 +7,10 @@ import {ProjectDetailsStore} from '../store/ProjectDetails';
 import { connect } from 'react-redux';
 
 const HomePage = (props) => {
-
-    const handleShowOption = () => {
-        //this.setState(() => ({showProjectCreationFormModal: true}));
-    }
     
-    const handleCloseOption = () => {
-        //this.setState(() => ({showProjectCreationFormModal: false}));
-    }
-
-    const handleAddOption = (titleText, descriptionText) => {
-        // if(!titleText){
-        //     return 'Title is mandatory';
-        // } 
-
-        // if(!descriptionText){
-        //     return 'Description is mandatory (min 150 char)';
-        // }
-
-        // const listOfProject = {
-        //     title: titleText,
-        //     desc: descriptionText
-        // };
-
-        // this.setState((prevState)=>({
-        //     listOfProjects: prevState.listOfProjects.concat([listOfProject])
-        // }));
-    }
-
     return (
         <div>
+
             <Header />
 
             <ActionButton
@@ -44,21 +18,22 @@ const HomePage = (props) => {
                 onClick={() => {
                     ProjectDetailsStore.dispatch(
                         {
-                            type: 'Open_Modal'
+                            type: 'OPEN_APPLICATION_FORM_MODAL'
                         })
                 }}
             />
 
             <ProjectCreationFormModal
                 showProjectCreationFormModal={props.showProjectCreationFormModal}
-                handleCloseOption={handleCloseOption}
-                handleAddOption={handleAddOption}
+                handleCloseOption={() => {// change nameing to onclose
+                    ProjectDetailsStore.dispatch(
+                        {
+                            type: 'CLOSE_APPLICATION_FORM_MODAL'
+                        })
+                }}
             />
 
-            {/* <ProjectsViewer 
-            listOfProjects={this.state.listOfProjects}
-            handleDeleteOption={this.handleDeleteOption}
-        /> */}
+            <ProjectsViewer />
 
         </div>
     );
@@ -66,7 +41,7 @@ const HomePage = (props) => {
 
 const mapStateToProps = function (state) {
     return {
-        showProjectCreationFormModal: state.showProjectCreationFormModal
+        showProjectCreationFormModal: state.showProjectCreationFormModal,
     };
 }
 

@@ -1,27 +1,27 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 
-export default class ProjectViewerModal extends React.Component {
-    constructor(props){
-        super(props);
-        
-    }
-
-    render(){
-        return (
-            <Modal
-                isOpen ={this.props.showProjectViewerModal}
-                onRequestClose={this.props.handleCloseProjectViewerModal}
-                contentLabel="Project Viewer"
-            >
-                <h2>Details of Selected Project</h2>
-                <p>TITLE:{this.props.detail.title}</p>
-                <p>DESC: {this.props.detail.desc}</p>
-                <p>IMAGES: </p>
-               
-
-            </Modal>
-        );
-    }
+const ProjectViewerModal = (props) => {
+    return (
+        <Modal
+            isOpen ={!!props.showProjectViewerModal}
+            onRequestClose={props.handleCloseProjectViewerModal}
+            contentLabel="Project Viewer"
+        >
+            <h2>Details of Selected Project</h2>
+            <p>TITLE:{props.showProjectViewerModal.title }</p>
+            <p>DESC: {props.showProjectViewerModal.description}</p>
+            <p>IMAGES: </p>
+            <button onClick={props.handleCloseProjectViewerModal}>Ok</button>
+        </Modal>
+    );
 }
 
+const mapStateToProps = function (state) {
+    return {
+        showProjectViewerModal: state.showProjectViewerModal
+    };
+}
+
+export default connect(mapStateToProps)(ProjectViewerModal);
