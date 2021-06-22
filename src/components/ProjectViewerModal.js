@@ -25,7 +25,7 @@ const ProjectViewerModal = (props) => {
                     <h2>Details of Selected Project</h2>
                     <p>TITLE:{props.showProjectViewerModal.title }</p>
                     <p>DESC: {props.showProjectViewerModal.description}</p>
-                    <p>IMAGES: </p>
+                    {/* <img src={"../../../../BingWallpaper.jpg"} /> */}
                     <button onClick={handleCloseProjectViewerModal}>Ok</button>
                 </div>
             }

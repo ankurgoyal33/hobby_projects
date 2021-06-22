@@ -18,7 +18,8 @@ const ProjectCreationFormModal = (props) => {
                         type: 'ADD_PROJECT_DETAIL',
                         value : {
                             title: e.target.elements.title.value.trim(),
-                            description: e.target.elements.description.value.trim()
+                            description: e.target.elements.description.value.trim(),
+                            // image_display: src
                         }
                     })
 
@@ -31,6 +32,10 @@ const ProjectCreationFormModal = (props) => {
                 <br/>
                 Description*: <textarea type='text' name='description' rows="5" cols="100" minLength="150" required/>
                 <br/>
+                {/* Image: <input type="file" src={pic1} name="image"/> */}
+                {/* <input type="file" onChange={this.onImageChange}  className="filetype" id="group_image"/> */}
+
+                <br />
                 <button >Save </button>
             </form>
 

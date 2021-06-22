@@ -32,7 +32,7 @@ const ProjectCard = (props) => {
                         })
                 }}
             />
-            <ProjectEditModal 
+            {/* <ProjectEditModal 
                 showProjectViewerModal = {props.showProjectEditModal}
                 handleCloseProjectViewerModal = {() => {
                     ProjectDetailsStore.dispatch(
@@ -40,7 +40,7 @@ const ProjectCard = (props) => {
                             type: 'CLOSE_EDIT_MODAL'
                         })
                 }}
-            />
+            /> */}
             <ActionButton 
                 text={"Delete"}
                 onClick={() => {

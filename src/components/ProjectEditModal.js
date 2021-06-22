@@ -1,23 +1,26 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 
-export default class ProjectEditModal extends React.Component {
-    constructor(props){
-        super(props);
-        
-    }
+const ProjectEditModal = () => {
 
-    render(){
-        return (
-            <Modal
-                isOpen ={this.props.showProjectViewerModal}
-                onRequestClose={this.props.handleCloseProjectViewerModal}
-                contentLabel="Project Edit"
-            >
-                <h2>Edit page</h2>
+    return (
+        <Modal
+            isOpen ={this.props.showProjectViewerModal}
+            onRequestClose={this.props.handleCloseProjectViewerModal}
+            contentLabel="Project Edit"
+        >
+            <h2>Edit page</h2>
 
-            </Modal>
-        );
-    }
+        </Modal>
+    );
+    
 }
 
+const mapStateToProps = function (state) {
+    return {
+        showProjectViewerModal: state.showProjectViewerModal
+    };
+}
+
+export default connect(mapStateToProps)(ProjectEditModal);

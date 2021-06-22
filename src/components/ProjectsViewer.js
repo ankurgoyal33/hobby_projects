@@ -6,10 +6,9 @@ const ProjectsViewer = (props) => (
     <div>
         <h2>List of projects:</h2>
         
-        {(props.listOfProjects && props.listOfProjects.length ===0 ) && <p>No Projects added</p>}
+        {props.listOfProjects.length ===0 && <p>No Projects added</p>}
         <ol>
         {
-            props.listOfProjects && 
             props.listOfProjects.map((project, index )=>(
                 <li>
                     <ProjectCard
