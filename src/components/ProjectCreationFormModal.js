@@ -29,7 +29,7 @@ const ProjectCreationFormModal = (props) => {
             }}>
                 Title*: <input type='text' name='title' required/>
                 <br/>
-                Description*: <textarea type='text' name='description' rows="5" cols="100" minLength="1" required/>
+                Description*: <textarea type='text' name='description' rows="5" cols="100" minLength="150" required/>
                 <br/>
                 <button >Save </button>
             </form>

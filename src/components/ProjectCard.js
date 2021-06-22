@@ -21,14 +21,7 @@ const ProjectCard = (props) => {
                         })
                 }}
             />
-            <ProjectViewerModal 
-                handleCloseProjectViewerModal = {() => {
-                    ProjectDetailsStore.dispatch(
-                        {
-                            type: 'CLOSE_MORE_DETAILS_MODAL'
-                        })
-                }}
-            />
+            <ProjectViewerModal />
 
             <ActionButton 
                 text={"Edit"}

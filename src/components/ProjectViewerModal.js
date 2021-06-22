@@ -1,19 +1,34 @@
 import React from 'react';
 import Modal from 'react-modal';
+import {ProjectDetailsStore} from '../store/ProjectDetails';
 import { connect } from 'react-redux';
 
 const ProjectViewerModal = (props) => {
+
+    const handleCloseProjectViewerModal = () => {
+        ProjectDetailsStore.dispatch(
+            {
+                type: 'CLOSE_MORE_DETAILS_MODAL'
+            })
+    }
+
     return (
         <Modal
             isOpen ={!!props.showProjectViewerModal}
-            onRequestClose={props.handleCloseProjectViewerModal}
+            onRequestClose={handleCloseProjectViewerModal}
             contentLabel="Project Viewer"
         >
-            <h2>Details of Selected Project</h2>
-            <p>TITLE:{props.showProjectViewerModal.title }</p>
-            <p>DESC: {props.showProjectViewerModal.description}</p>
-            <p>IMAGES: </p>
-            <button onClick={props.handleCloseProjectViewerModal}>Ok</button>
+            {
+                props.showProjectViewerModal &&
+                
+                <div>
+                    <h2>Details of Selected Project</h2>
+                    <p>TITLE:{props.showProjectViewerModal.title }</p>
+                    <p>DESC: {props.showProjectViewerModal.description}</p>
+                    <p>IMAGES: </p>
+                    <button onClick={handleCloseProjectViewerModal}>Ok</button>
+                </div>
+            }
         </Modal>
     );
 }

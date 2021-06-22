@@ -10,9 +10,7 @@ const HomePage = (props) => {
     
     return (
         <div>
-
             <Header />
-
             <ActionButton
                 text={"Add New Project"}
                 onClick={() => {
@@ -22,7 +20,6 @@ const HomePage = (props) => {
                         })
                 }}
             />
-
             <ProjectCreationFormModal
                 showProjectCreationFormModal={props.showProjectCreationFormModal}
                 handleCloseOption={() => {// change nameing to onclose
@@ -32,9 +29,7 @@ const HomePage = (props) => {
                         })
                 }}
             />
-
             <ProjectsViewer />
-
         </div>
     );
 }

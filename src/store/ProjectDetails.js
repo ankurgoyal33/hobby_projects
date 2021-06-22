@@ -1,11 +1,13 @@
 import { createStore } from 'redux';
 
+let lOP = localStorage.getItem('listOfProjects') ? 
+            JSON.parse(localStorage.getItem('listOfProjects')):[]; 
 
 let Initial_State= {
   showProjectCreationFormModal: false,
   showProjectViewerModal: false,
   showProjectEditModal: false,
-  listOfProjects: []
+  listOfProjects:lOP
 };
 
 function ProjectDetailsReducer(state = Initial_State, action) {
@@ -29,7 +31,7 @@ function ProjectDetailsReducer(state = Initial_State, action) {
     case 'CLOSE_MORE_DETAILS_MODAL':
       return {  
         ...state, 
-        showProjectViewerModal: false 
+        showProjectViewerModal: undefined 
       } ;
     case 'OPEN_EDIT_MODAL':
       return {  
@@ -43,15 +45,21 @@ function ProjectDetailsReducer(state = Initial_State, action) {
       } ;
 
     case 'ADD_PROJECT_DETAIL':
+      let listt =  [ ...state.listOfProjects , { ...action.value}] ;
+      localStorage.setItem('listOfProjects', JSON.stringify(listt));
       return{
         ...state,
-        listOfProjects: [ ...state.listOfProjects , { ...action.value, showDetails : false}]
+        listOfProjects: listt
+        // listOfProjects: [ ...state.listOfProjects , { ...action.value, showDetails : false}]
       };
 
     case 'DELETE_PROJECT_DETAIL':
+      let lis =  state.listOfProjects.filter((project)=> action.titleToRemove !== project.title);
+      localStorage.setItem('listOfProjects', JSON.stringify(lis));
+
       return{
         ...state,
-        listOfProjects: state.listOfProjects.filter((project)=> action.titleToRemove !== project.title)
+        listOfProjects: lis
       };
 
     default:
