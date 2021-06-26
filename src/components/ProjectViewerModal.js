@@ -2,7 +2,6 @@ import React from 'react';
 import Modal from 'react-modal';
 import {ProjectDetailsStore} from '../store/ProjectDetails';
 import { connect } from 'react-redux';
-// import {img1} from '../images/a.jpg';
 
 const ProjectViewerModal = (props) => {
 
@@ -27,8 +26,10 @@ const ProjectViewerModal = (props) => {
                     <p>TITLE:{props.showProjectViewerModal.title }</p>
                     <p>DESC: {props.showProjectViewerModal.description}</p>
                     <br />
-                    <img src="/logo.png" />
-                    {/* <img src={img1} /> */}
+                    {/* <img src="/images/a.jpg" /> */}
+                    <img src= {`url(data:image/png;base64,${props.showProjectViewerModal.uploadedImageFilePath})`} width="200" height="200"/>
+                    {/* <p>IMAGE: {props.showProjectViewerModal.image_path}</p> */}
+
                     <button onClick={handleCloseProjectViewerModal}>Ok</button>
                 </div>
             }
